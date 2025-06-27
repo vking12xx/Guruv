@@ -306,11 +306,11 @@
     </head>
     <body>
         <!DOCTYPE html>
-<html lang=&quot;en&quot;>
+<html lang="en">
 <head>
-    <meta charset=&quot;UTF-8&quot;>
-    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-    <title>Amount Display</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Second Page</title>
     <style>
         body {
             display: flex;
@@ -319,7 +319,7 @@
             height: 100vh;
             font-family: Arial, sans-serif;
         }
-        #amountDisplay {
+        #totalAmount {
             font-size: 55px;
             font-weight: bold;
             color: #1D924B;
@@ -327,27 +327,13 @@
     </style>
 </head>
 <body>
-    <div id=&quot;amountDisplay&quot;></div>
+  <h1><span id="totalAmount">0</span></h1>
 
-    <script>
-        function updateAmount() {
-            let storedNumber = localStorage.getItem('number');
-            let storedTime = localStorage.getItem('timestamp');
-            const currentTime = new Date().getTime();
-
-            if (!storedNumber || !storedTime || (currentTime - storedTime) >= 3600000) {
-                storedNumber = 0;
-            }
-
-            document.getElementById('amountDisplay').innerText = &quot;&quot; + (storedNumber * 8);
-        }
-
-        // Initial update
-        updateAmount();
-
-        // Listen for storage changes to update in real-time
-        window.addEventListener('storage', updateAmount);
-    </script>
+  <script>
+    // Dusre page par localStorage se amount le lo
+    const totalAmount = localStorage.getItem('totalAmount') || 0;
+    document.getElementById('totalAmount').innerText = totalAmount;
+  </script>
 </body>
 </html>
         <script type=&quot;module&quot;>
