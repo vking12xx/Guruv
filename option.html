@@ -74,21 +74,20 @@
             }
         </style>
     </head>
-    <body>
-        <!DOCTYPE html>
-<html lang=&quot;en&quot;>
+    <body><!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset=&quot;UTF-8&quot;>
-    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-    <title>Payment Page</title>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Page</title>
+  <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             font-family: Arial, sans-serif;
-        }
+    }
         #payButton {
             background: none;
             color: white;
@@ -97,34 +96,55 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
-        }
-        #payButton:hover {
-            background-color: transparent;
-        }
-    </style>
+    }
+    select {
+      font-size: 20px;
+      padding: 1px;
+      border-radius: 5px;
+      border: none;
+      margin-right: 350px;
+    }
+  </style>
 </head>
 <body>
-    <button id=&quot;payButton&quot;>PAY ₹ <span id=&quot;payAmount&quot;>0</span></button>
+  <label for="priceSelect"></label>
+  <select id="priceSelect">
+    <option value="8">₹8 per unit</option>
+    <option value="13">₹13 per unit</option>
+  </select>
 
-    <script>
-        function updateAmount() {
-            let storedNumber = localStorage.getItem('number');
-            let storedTime = localStorage.getItem('timestamp');
-            const currentTime = new Date().getTime();
+  <button id="payButton">
+    PAY ₹ <span id="payAmount">0</span>
+  </button>
 
-            if (!storedNumber || !storedTime || (currentTime - storedTime) >= 3600000) {
-                storedNumber = 0;
-            }
+  <script>
+function updateAmount() {
+  let storedNumber = localStorage.getItem('number');
+  let storedTime = localStorage.getItem('timestamp');
+  const currentTime = new Date().getTime();
 
-            document.getElementById('payAmount').innerText = storedNumber * 8;
-        }
+  if (!storedNumber || !storedTime || (currentTime - storedTime) >= 3600000) {
+    storedNumber = 0;
+  }
 
-        // Initial amount update
-        updateAmount();
+  const pricePerUnit = parseInt(document.getElementById('priceSelect').value, 10);
+  const total = storedNumber * pricePerUnit;
 
-        // Listen for localStorage changes and update the amount in real-time
-        window.addEventListener('storage', updateAmount);
-    </script>
+  document.getElementById('payAmount').innerText = total;
+
+  // YAHAN add karo
+  localStorage.setItem('totalAmount', total);
+}
+
+    // Initial update
+    updateAmount();
+
+    // Listen for localStorage changes
+    window.addEventListener('storage', updateAmount);
+
+    // Listen for price selection change
+    document.getElementById('priceSelect').addEventListener('change', updateAmount);
+  </script>
 </body>
 </html>
         <script type=&quot;module&quot;>
